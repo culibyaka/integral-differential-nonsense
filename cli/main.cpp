@@ -1,8 +1,12 @@
 #include <cassert>
+#include <cmath>
 #include <format>
 #include <iostream>
+#include <memory>
+#include <solver/rk4.hpp>
 #include <vector>
-#include "solver/rk4.hpp"
+#include "parser.hpp"
+#include "parser/AST.hpp"
 
 #define UNUSED(x) (void)(x)
 
@@ -26,7 +30,7 @@ void GenerateCSVReport(ArrayCref xs, ArrayCref ys) {
 
 float Func(float x, float y) {
   UNUSED(y);
-  return x;
+  return std::sin(x * x);
 }
 
 float Last(ArrayCref v) { return v[v.size() - 1]; }
@@ -51,7 +55,7 @@ std::pair<Array, Array> Solve(float dx) {
   return {xs, ys};
 }
 
-int main(int argc, char** argv) {
+int Main2(int argc, char** argv) {
   if (argc < 2) {
     std::cout << std::format("usage: {} <step>\n", argv[0]);
     return -1;
@@ -63,3 +67,28 @@ int main(int argc, char** argv) {
 
   return 0;
 }
+
+int main(int argc, char** argv) {
+  using idn::parser::Lexer;
+
+  Lexer l("  123 asd");
+  [[maybe_unused]] auto _ = l.Lex();
+  const auto t = l.Lex();
+  if (!t) {
+    std::cout << "POSOSI\n";
+  } else {
+    std::cout << std::format("{} {} {}", ToString(t->kind_), t->loc_.pos_,
+                             t->text_);
+  }
+}
+
+// int main(int argc, char** argv) {
+//   using idn::parser::ast::Multiply, idn::parser::ast::Const,
+//       idn::parser::ast::Id, idn::parser::ast::Pow;
+
+//   auto expr = std::make_unique<Multiply>(
+//       std::make_unique<Const>(0.5),
+//       std::make_unique<Pow>(std::make_unique<Id>(),
+//                             std::make_unique<Const>(2)));
+//   std::cout << expr->Evaluate(10);
+// }

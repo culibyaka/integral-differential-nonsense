@@ -1,0 +1,17 @@
+project(idn-parser CXX)
+
+file(GLOB_RECURSE SOURCES
+  ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp
+)
+
+add_library(${PROJECT_NAME} STATIC ${SOURCES})
+
+target_include_directories(
+  ${PROJECT_NAME}
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)

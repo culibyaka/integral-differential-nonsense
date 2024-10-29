@@ -26,11 +26,11 @@ build-debug build-release: build-%: cmake-%
 
 .PHONY: run-debug run-release
 run-debug run-release: run-%: build-%
-	cmake --build build_$* -v --target start-lab1
+	cmake --build build_$* -v --target start-idn
 
 .PHONY: format
 format:
-	find src -name '*pp' -type f  | xargs $(CLANG_FORMAT) -i
+	find cli parser solver -name '*pp' -type f  | xargs $(CLANG_FORMAT) -i
 	$(BLACK) $(BLACK_FLAGS) vissuite
 
 .PHONY: dist-clean
