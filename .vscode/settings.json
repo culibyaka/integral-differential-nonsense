@@ -1,7 +1,0 @@
-{
-    "clangd.arguments": [
-        "-header-insertion=iwyu",
-    ],
-    "cmake.copyCompileCommands": "${workspaceFolder}/compile_commands.json",
-    "makefile.configureOnOpen": false
-}

@@ -1,16 +1,11 @@
 #include <cassert>
 #include <cmath>
 #include <format>
+#include <idn/common/macro.hpp>
+#include <idn/evaluator/AST.hpp>
+#include <idn/solver/rk4.hpp>
 #include <iostream>
-#include <memory>
-#include <solver/rk4.hpp>
 #include <vector>
-#include "parser.hpp"
-#include "parser/AST.hpp"
-
-#define UNUSED(x) (void)(x)
-
-extern "C" float f(float);  // NOLINT
 
 static constexpr float kStart = -1.0f;
 static constexpr float kEnd = 1.0f;
@@ -69,26 +64,11 @@ int Main2(int argc, char** argv) {
 }
 
 int main(int argc, char** argv) {
-  using idn::parser::Lexer;
+  using idn::parser::ast::Multiply, idn::parser::ast::Const,
+      idn::parser::ast::X, idn::parser::ast::Pow;
 
-  Lexer l("  123 asd");
-  [[maybe_unused]] auto _ = l.Lex();
-  const auto t = l.Lex();
-  if (!t) {
-    std::cout << "POSOSI\n";
-  } else {
-    std::cout << std::format("{} {} {}", ToString(t->kind_), t->loc_.pos_,
-                             t->text_);
-  }
+  auto expr = std::make_unique<Multiply>(
+      std::make_unique<Const>(0.5),
+      std::make_unique<Pow>(std::make_unique<X>(), std::make_unique<Const>(2)));
+  std::cout << expr->Evaluate(10, 0);
 }
-
-// int main(int argc, char** argv) {
-//   using idn::parser::ast::Multiply, idn::parser::ast::Const,
-//       idn::parser::ast::Id, idn::parser::ast::Pow;
-
-//   auto expr = std::make_unique<Multiply>(
-//       std::make_unique<Const>(0.5),
-//       std::make_unique<Pow>(std::make_unique<Id>(),
-//                             std::make_unique<Const>(2)));
-//   std::cout << expr->Evaluate(10);
-// }

@@ -1,8 +1,7 @@
-#include "parser.hpp"
+#include "lexer.hpp"
 #include <bits/ranges_util.h>
 #include <cctype>
-#include <string_view>
-#include "common.hpp"
+#include <idn/common/assert.hpp>
 
 namespace idn::parser {
 
@@ -41,7 +40,31 @@ std::optional<Token> Lexer::Lex() noexcept {
     if (Peek() == ')') {
       const auto loc = GetCurrentLocation();
       const auto str = text_.substr(pos_++, 1);
-      return Token{TokenKind::kRPar, loc, str};  
+      return Token{TokenKind::kRPar, loc, str};
+    }
+
+    if (Peek() == '+') {
+      const auto loc = GetCurrentLocation();
+      const auto str = text_.substr(pos_++, 1);
+      return Token{TokenKind::kPlus, loc, str};
+    }
+
+    if (Peek() == '-') {
+      const auto loc = GetCurrentLocation();
+      const auto str = text_.substr(pos_++, 1);
+      return Token{TokenKind::kMinus, loc, str};
+    }
+
+    if (Peek() == '*') {
+      const auto loc = GetCurrentLocation();
+      const auto str = text_.substr(pos_++, 1);
+      return Token{TokenKind::kMultiply, loc, str};
+    }
+
+    if (Peek() == '/') {
+      const auto loc = GetCurrentLocation();
+      const auto str = text_.substr(pos_++, 1);
+      return Token{TokenKind::kDivide, loc, str};
     }
   }
 

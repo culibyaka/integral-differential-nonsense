@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <optional>
 #include <string>
-#include "common.hpp"
+#include <idn/common/assert.hpp>
 
 namespace idn::parser {
 
@@ -34,6 +34,12 @@ class Lexer {
  public:
   explicit Lexer(std::string_view s) : text_(s), pos_(0) {}
 
+  bool IsEnd() const noexcept { return pos_ >= text_.size(); }
+
+  std::optional<Token> Lex() noexcept;
+
+ private:
+  // FIXME
   char Peek() const noexcept {
     IDN_ASSERT(pos_ < text_.size());
     return text_[pos_];
@@ -41,11 +47,6 @@ class Lexer {
 
   char Next() noexcept { return text_[pos_++]; }
 
-  bool IsEnd() const noexcept { return pos_ >= text_.size(); }
-
-  std::optional<Token> Lex() noexcept;
-
- private:
   Token LexNumber() noexcept;
   Token LexName() noexcept;
 

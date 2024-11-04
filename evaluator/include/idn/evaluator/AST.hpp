@@ -2,14 +2,15 @@
 
 #include <cmath>
 #include <memory>
-#include "common.hpp"
+#include <idn/common/macro.hpp>
+#include <idn/common/assert.hpp>
 
 namespace idn::parser::ast {
 
 class BaseNode {
  public:
-  double operator()(double x) { return Evaluate(x); }
-  virtual double Evaluate(double x) = 0;
+  double operator()(double x, double y) { return Evaluate(x, y); }
+  virtual double Evaluate(double x, double y) = 0;
   virtual ~BaseNode() = default;
 };
 
@@ -17,17 +18,29 @@ using BaseNodePtr = std::unique_ptr<BaseNode>;
 
 // SPECIAL
 
-class Id : public BaseNode {
+class X : public BaseNode {
  public:
-  double Evaluate(double x) override { return x; }
+  double Evaluate(double x, double y) override {
+    UNUSED(y);
+    return x;
+  }
+};
+
+class Y : public BaseNode {
+ public:
+  double Evaluate(double x, double y) override {
+    UNUSED(x);
+    return y;
+  }
 };
 
 class Const : public BaseNode {
  public:
   explicit Const(double value) : value_(value) {}
 
-  double Evaluate(double x) override {
-    IGNORE(x);
+  double Evaluate(double x, double y) override {
+    UNUSED(x);
+    UNUSED(y);
     return value_;
   }
 
@@ -42,8 +55,8 @@ class Plus : public BaseNode {
   Plus(BaseNodePtr left, BaseNodePtr right)
       : left_(std::move(left)), right_(std::move(right)) {}
 
-  double Evaluate(double x) override {
-    return left_->Evaluate(x) + right_->Evaluate(x);
+  double Evaluate(double x, double y) override {
+    return left_->Evaluate(x, y) + right_->Evaluate(x, y);
   }
 
  private:
@@ -55,8 +68,8 @@ class Minus : public BaseNode {
   Minus(BaseNodePtr left, BaseNodePtr right)
       : left_(std::move(left)), right_(std::move(right)) {}
 
-  double Evaluate(double x) override {
-    return left_->Evaluate(x) - right_->Evaluate(x);
+  double Evaluate(double x, double y) override {
+    return left_->Evaluate(x, y) - right_->Evaluate(x, y);
   }
 
  private:
@@ -68,8 +81,8 @@ class Multiply : public BaseNode {
   Multiply(BaseNodePtr left, BaseNodePtr right)
       : left_(std::move(left)), right_(std::move(right)) {}
 
-  double Evaluate(double x) override {
-    return left_->Evaluate(x) * right_->Evaluate(x);
+  double Evaluate(double x, double y) override {
+    return left_->Evaluate(x, y) * right_->Evaluate(x, y);
   }
 
  private:
@@ -81,8 +94,8 @@ class Divide : public BaseNode {
   Divide(BaseNodePtr left, BaseNodePtr right)
       : left_(std::move(left)), right_(std::move(right)) {}
 
-  double Evaluate(double x) override {
-    return left_->Evaluate(x) * right_->Evaluate(x);
+  double Evaluate(double x, double y) override {
+    return left_->Evaluate(x, y) * right_->Evaluate(x, y);
   }
 
  private:
@@ -94,8 +107,8 @@ class Pow : public BaseNode {
   Pow(BaseNodePtr left, BaseNodePtr right)
       : left_(std::move(left)), right_(std::move(right)) {}
 
-  double Evaluate(double x) override {
-    return std::pow(left_->Evaluate(x), right_->Evaluate(x));
+  double Evaluate(double x, double y) override {
+    return std::pow(left_->Evaluate(x, y), right_->Evaluate(x, y));
   }
 
  private:
@@ -108,7 +121,7 @@ class UnaryMinus : public BaseNode {
  public:
   explicit UnaryMinus(BaseNodePtr val) : val_(std::move(val)) {}
 
-  double Evaluate(double x) override { return -val_->Evaluate(x); }
+  double Evaluate(double x, double y) override { return -val_->Evaluate(x, y); }
 
  private:
   BaseNodePtr val_;
@@ -118,7 +131,9 @@ class Sin : public BaseNode {
  public:
   explicit Sin(BaseNodePtr val) : val_(std::move(val)) {}
 
-  double Evaluate(double x) override { return std::sin(val_->Evaluate(x)); }
+  double Evaluate(double x, double y) override {
+    return std::sin(val_->Evaluate(x, y));
+  }
 
  private:
   BaseNodePtr val_;
@@ -128,7 +143,9 @@ class Cos : public BaseNode {
  public:
   explicit Cos(BaseNodePtr val) : val_(std::move(val)) {}
 
-  double Evaluate(double x) override { return std::cos(val_->Evaluate(x)); }
+  double Evaluate(double x, double y) override {
+    return std::cos(val_->Evaluate(x, y));
+  }
 
  private:
   BaseNodePtr val_;
@@ -138,7 +155,9 @@ class Tan : public BaseNode {
  public:
   explicit Tan(BaseNodePtr val) : val_(std::move(val)) {}
 
-  double Evaluate(double x) override { return std::tan(val_->Evaluate(x)); }
+  double Evaluate(double x, double y) override {
+    return std::tan(val_->Evaluate(x, y));
+  }
 
  private:
   BaseNodePtr val_;
@@ -148,7 +167,9 @@ class Asin : public BaseNode {
  public:
   explicit Asin(BaseNodePtr val) : val_(std::move(val)) {}
 
-  double Evaluate(double x) override { return std::asin(val_->Evaluate(x)); }
+  double Evaluate(double x, double y) override {
+    return std::asin(val_->Evaluate(x, y));
+  }
 
  private:
   BaseNodePtr val_;
@@ -158,7 +179,9 @@ class Acos : public BaseNode {
  public:
   explicit Acos(BaseNodePtr val) : val_(std::move(val)) {}
 
-  double Evaluate(double x) override { return std::acos(val_->Evaluate(x)); }
+  double Evaluate(double x, double y) override {
+    return std::acos(val_->Evaluate(x, y));
+  }
 
  private:
   BaseNodePtr val_;
@@ -168,7 +191,9 @@ class Log : public BaseNode {
  public:
   explicit Log(BaseNodePtr val) : val_(std::move(val)) {}
 
-  double Evaluate(double x) override { return std::log(val_->Evaluate(x)); }
+  double Evaluate(double x, double y) override {
+    return std::log(val_->Evaluate(x, y));
+  }
 
  private:
   BaseNodePtr val_;
