@@ -1,9 +1,9 @@
-#include <idn/evaluator/parser.hpp>
-#include "lexer.hpp"
 #include <idn/evaluator/AST.hpp>
+#include <idn/evaluator/parser.hpp>
 #include <memory>
 #include <optional>
 #include <stdexcept>
+#include "lexer.hpp"
 
 namespace idn::parser {
 
@@ -39,10 +39,8 @@ Token Parser::ParserImpl::Eat(TokenKind kind) {
 // IMPL
 
 Parser::Parser(LexerPtr lexer) noexcept
-  : impl_(std::make_unique<ParserImpl>(std::move(lexer))) {}
+    : impl_(std::make_unique<ParserImpl>(std::move(lexer))) {}
 
-ast::BaseNodePtr Parser::Parse() {
-  return impl_->Parse();
-}
+ast::BaseNodePtr Parser::Parse() { return impl_->Parse(); }
 
-}
+}  // namespace idn::parser

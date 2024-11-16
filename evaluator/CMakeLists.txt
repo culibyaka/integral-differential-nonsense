@@ -1,4 +1,4 @@
-project(idn-evaluator CXX)
+project(idn_evaluator CXX)
 
 file(GLOB_RECURSE SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
@@ -19,6 +19,10 @@ target_include_directories(
 
 target_link_libraries(
   ${PROJECT_NAME}
-  PRIVATE
+  PUBLIC
     idn::common
 )
+
+if (TRUE)
+  add_subdirectory(tests)
+endif ()

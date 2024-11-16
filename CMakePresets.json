@@ -1,5 +1,10 @@
 {
-    "version": 2,
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 25,
+        "patch": 0
+    },
     "configurePresets": [
         {
             "name": "linux",
@@ -24,6 +29,18 @@
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
+        }
+    ],
+    "testPresets": [
+        {
+          "name": "test-all",
+          "configurePreset": "linux-debug",
+          "output": {
+            "outputOnFailure": true
+          },
+          "execution": {
+            "stopOnFailure": true
+          }
         }
     ]
 }

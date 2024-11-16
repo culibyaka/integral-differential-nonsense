@@ -1,9 +1,9 @@
 #pragma once
 
 #include <cmath>
-#include <memory>
-#include <idn/common/macro.hpp>
 #include <idn/common/assert.hpp>
+#include <idn/common/macro.hpp>
+#include <memory>
 
 namespace idn::parser::ast {
 
@@ -95,7 +95,7 @@ class Divide : public BaseNode {
       : left_(std::move(left)), right_(std::move(right)) {}
 
   double Evaluate(double x, double y) override {
-    return left_->Evaluate(x, y) * right_->Evaluate(x, y);
+    return left_->Evaluate(x, y) / right_->Evaluate(x, y);
   }
 
  private:
@@ -181,6 +181,18 @@ class Acos : public BaseNode {
 
   double Evaluate(double x, double y) override {
     return std::acos(val_->Evaluate(x, y));
+  }
+
+ private:
+  BaseNodePtr val_;
+};
+
+class Atan : public BaseNode {
+ public:
+  explicit Atan(BaseNodePtr val) : val_(std::move(val)) {}
+
+  double Evaluate(double x, double y) override {
+    return std::atan(val_->Evaluate(x, y));
   }
 
  private:
