@@ -1,0 +1,18 @@
+project(idn_solver CXX ASM_NASM)
+
+file(GLOB_RECURSE CXX_SOURCES
+  ${CMAKE_CURRENT_SOURCE_DIR}/**.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/**.cpp)
+
+file(GLOB_RECURSE ASM_SOURCES
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.asm)
+
+add_library(${PROJECT_NAME} ${CXX_SOURCES} ${ASM_SOURCES})
+add_library(idn::solver ALIAS ${PROJECT_NAME})
+
+target_include_directories(
+  ${PROJECT_NAME}
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src)

@@ -4,6 +4,9 @@ __pycache__/
 
 plot/
 
+.cache/
+compile_commands.json
+
 *.o
 *.pyc
 

@@ -3,10 +3,16 @@ from math import log
 # Function tabulation range
 FROM, TO = -1, 1
 # Tabulation step(dx)
-STEP = 5e-1
+STEP = 1e-2
 
 A = 2.0
 
+
 # Function itself
 def f(x: float) -> float:
-    return log(abs(x - A / 2))
+    """
+    y' = x
+    y = x^2/2 + C
+    y(0) = 0 => C = 0
+    """
+    return x**2 / 2
