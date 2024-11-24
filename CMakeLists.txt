@@ -1,4 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
+project(idn LANGUAGES CXX)
+
+option(IDN_ENABLE_TESTING "Enables all tests" ON)
 
 include(cmake/SetupCompiler.cmake)
 include(cmake/SetupVenv.cmake)

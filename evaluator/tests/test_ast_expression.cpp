@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include <idn/evaluator/AST.hpp>
 #include <memory>
+#include "AST.hpp"
 
 TEST(Expression, Basic) {
   using idn::parser::ast::Const, idn::parser::ast::X, idn::parser::ast::Y,

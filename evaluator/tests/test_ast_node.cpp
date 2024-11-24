@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include <idn/evaluator/AST.hpp>
 #include <memory>
+#include "AST.hpp"
 
 static idn::parser::ast::BaseNodePtr GetX() {
   return std::make_unique<idn::parser::ast::X>();

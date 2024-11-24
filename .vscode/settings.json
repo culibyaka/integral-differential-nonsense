@@ -1,0 +1,8 @@
+{
+    "clangd.arguments": [
+        "-header-insertion=iwyu"
+    ],
+    "testMate.cpp.test.executables": "build_*/**/tests/*_tests",
+    "cmake.copyCompileCommands": "${workspaceFolder}/compile_commands.json",
+    "makefile.configureOnOpen": false
+}

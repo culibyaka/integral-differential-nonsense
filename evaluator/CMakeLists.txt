@@ -1,4 +1,7 @@
+cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
 project(idn_evaluator CXX)
+
+option(ENABLE_IDN_EVALUATOR_TESTING "Enables IDN::Evaluator testing" ON)
 
 file(GLOB_RECURSE SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
@@ -23,6 +26,6 @@ target_link_libraries(
     idn::common
 )
 
-if (TRUE)
+if (IDN_ENABLE_TESTING AND ENABLE_IDN_EVALUATOR_TESTING)
   add_subdirectory(tests)
 endif ()
