@@ -1,8 +1,9 @@
 #include <cassert>
 #include <cmath>
+#include <cstdlib>
 #include <format>
 #include <idn/common/macro.hpp>
-#include <idn/evaluator/AST.hpp>
+#include <idn/evaluator/ast_node_base.hpp>
 #include <idn/solver/rk4.hpp>
 #include <iostream>
 #include <vector>
@@ -50,7 +51,7 @@ std::pair<Array, Array> Solve(float dx) {
   return {xs, ys};
 }
 
-int Main2(int argc, char** argv) {
+int main(int argc, char** argv) {
   if (argc < 2) {
     std::cout << std::format("usage: {} <step>\n", argv[0]);
     return -1;
@@ -61,14 +62,4 @@ int Main2(int argc, char** argv) {
   GenerateCSVReport(xs, ys);
 
   return 0;
-}
-
-int main(int argc, char** argv) {
-  using idn::parser::ast::Multiply, idn::parser::ast::Const,
-      idn::parser::ast::X, idn::parser::ast::Pow;
-
-  auto expr = std::make_unique<Multiply>(
-      std::make_unique<Const>(0.5),
-      std::make_unique<Pow>(std::make_unique<X>(), std::make_unique<Const>(2)));
-  std::cout << expr->Evaluate(10, 0);
 }

@@ -18,7 +18,7 @@ class Parser {
 
  private:
   class ParserImpl;
-  
+
   // TODO: not use PImpl???
   std::unique_ptr<ParserImpl> impl_;
 };
