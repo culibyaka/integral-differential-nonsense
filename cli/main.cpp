@@ -1,11 +1,16 @@
 #include <cassert>
 #include <cmath>
+#include <cstdlib>
 #include <format>
 #include <idn/common/macro.hpp>
-#include <idn/evaluator/AST.hpp>
+#include <idn/evaluator/ast_node_base.hpp>
 #include <idn/solver/rk4.hpp>
 #include <iostream>
+#include <memory>
+#include <utility>
 #include <vector>
+#include "../evaluator/src/lexer.hpp"
+#include "idn/evaluator/parser.hpp"
 
 static constexpr float kStart = -1.0f;
 static constexpr float kEnd = 1.0f;
@@ -64,11 +69,10 @@ int Main2(int argc, char** argv) {
 }
 
 int main(int argc, char** argv) {
-  using idn::parser::ast::Multiply, idn::parser::ast::Const,
-      idn::parser::ast::X, idn::parser::ast::Pow;
+  auto lexer = std::make_unique<idn::parser::Lexer>("cos((1 + x) * y)");
+  idn::parser::Parser parser(std::move(lexer));
+  const auto expr = parser.Parse();
+  std::cout << std::format("Result: {}\n", expr->Evaluate(2, 3));
 
-  auto expr = std::make_unique<Multiply>(
-      std::make_unique<Const>(0.5),
-      std::make_unique<Pow>(std::make_unique<X>(), std::make_unique<Const>(2)));
-  std::cout << expr->Evaluate(10, 0);
+  return EXIT_SUCCESS;
 }

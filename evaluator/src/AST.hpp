@@ -1,24 +1,14 @@
 #pragma once
-
 #include <cmath>
-#include <memory>
-#include <idn/common/macro.hpp>
 #include <idn/common/assert.hpp>
+#include <idn/common/macro.hpp>
+#include <idn/evaluator/ast_node_base.hpp>
 
 namespace idn::parser::ast {
 
-class BaseNode {
- public:
-  double operator()(double x, double y) { return Evaluate(x, y); }
-  virtual double Evaluate(double x, double y) = 0;
-  virtual ~BaseNode() = default;
-};
-
-using BaseNodePtr = std::unique_ptr<BaseNode>;
-
 // SPECIAL
 
-class X : public BaseNode {
+class X final : public BaseNode {
  public:
   double Evaluate(double x, double y) override {
     UNUSED(y);
@@ -26,7 +16,7 @@ class X : public BaseNode {
   }
 };
 
-class Y : public BaseNode {
+class Y final : public BaseNode {
  public:
   double Evaluate(double x, double y) override {
     UNUSED(x);
@@ -47,6 +37,9 @@ class Const : public BaseNode {
  private:
   const double value_;
 };
+
+BaseNodePtr GetX();
+BaseNodePtr GetY();
 
 // BINARY
 
@@ -187,6 +180,18 @@ class Acos : public BaseNode {
   BaseNodePtr val_;
 };
 
+class Atan : public BaseNode {
+ public:
+  explicit Atan(BaseNodePtr val) : val_(std::move(val)) {}
+
+  double Evaluate(double x, double y) override {
+    return std::acos(val_->Evaluate(x, y));
+  }
+
+ private:
+  BaseNodePtr val_;
+};
+
 class Log : public BaseNode {
  public:
   explicit Log(BaseNodePtr val) : val_(std::move(val)) {}
@@ -199,4 +204,4 @@ class Log : public BaseNode {
   BaseNodePtr val_;
 };
 
-}  // namespace idn::parser::ast
+};  // namespace idn::parser::ast

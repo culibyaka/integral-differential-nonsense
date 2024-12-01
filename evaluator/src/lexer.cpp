@@ -1,5 +1,4 @@
 #include "lexer.hpp"
-#include <bits/ranges_util.h>
 #include <cctype>
 #include <idn/common/assert.hpp>
 

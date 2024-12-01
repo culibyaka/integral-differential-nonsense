@@ -25,7 +25,17 @@ struct Location {
 struct Token {
   TokenKind kind_;
   Location loc_;
-  std::string_view text_;
+  std::string text_;
+  //std::string_view text_;
+
+  bool Is(TokenKind kind) const { return kind_ == kind; }
+  bool IsOneOf(TokenKind k1, TokenKind k2) const {
+    return Is(k1) || Is(k2);
+  }
+  template<typename ...Ts>
+  bool IsOneOf(TokenKind kind, Ts... ks) const {
+    return Is(kind) || IsOneOf(ks...);
+  }
 };
 
 std::string ToString(TokenKind kind);

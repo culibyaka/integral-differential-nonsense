@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include "AST.hpp"
+#include <idn/evaluator/ast_node_base.hpp>
 
 namespace idn::parser {
 
@@ -13,6 +13,7 @@ class Parser {
 
  public:
   explicit Parser(LexerPtr lexer) noexcept;
+  ~Parser();
 
   ast::BaseNodePtr Parse();
 
