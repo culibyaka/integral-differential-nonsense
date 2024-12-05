@@ -10,6 +10,7 @@ target_include_directories(${PROJECT_NAME}
 )
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
+    idn::common
     idn::evaluator
     gtest
     gtest_main)

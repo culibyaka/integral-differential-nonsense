@@ -22,3 +22,5 @@ target_link_libraries(
   PRIVATE
     idn::common
 )
+
+add_subdirectory(tests)

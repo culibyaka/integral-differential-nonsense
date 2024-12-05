@@ -25,5 +25,17 @@
                 "CMAKE_BUILD_TYPE": "Release"
             }
         }
+    ],
+    "testPresets": [
+        {
+          "name": "test-all",
+          "configurePreset": "linux-debug",
+          "output": {
+            "outputOnFailure": true
+          },
+          "execution": {
+            "stopOnFailure": true
+          }
+        }
     ]
 }
