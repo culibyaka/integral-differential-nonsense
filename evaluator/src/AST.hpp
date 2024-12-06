@@ -88,7 +88,7 @@ class Divide : public BaseNode {
       : left_(std::move(left)), right_(std::move(right)) {}
 
   double Evaluate(double x, double y) override {
-    return left_->Evaluate(x, y) * right_->Evaluate(x, y);
+    return left_->Evaluate(x, y) / right_->Evaluate(x, y);
   }
 
  private:
@@ -185,7 +185,7 @@ class Atan : public BaseNode {
   explicit Atan(BaseNodePtr val) : val_(std::move(val)) {}
 
   double Evaluate(double x, double y) override {
-    return std::acos(val_->Evaluate(x, y));
+    return std::atan(val_->Evaluate(x, y));
   }
 
  private:
