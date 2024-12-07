@@ -5,7 +5,7 @@
 
 namespace idn::cli {
 
-void GenerateCSVReport(ArrayCref xs, ArrayCref ys) {
+void GenerateCSVReport(solver::rk4::ArrayCref xs, solver::rk4::ArrayCref ys) {
   IDN_ASSERT(xs.size() == ys.size());
 
   std::cout << "x,f\n";

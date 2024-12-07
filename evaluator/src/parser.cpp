@@ -36,7 +36,7 @@ static ast::BaseNodePtr CreateFunction(std::string_view function_name, ast::Base
   F(log, Log)
 #undef F
 
-  IDN_UNREACHEBLE();
+  IDN_UNREACHABLE();
 }
 
 Token Parser::Eat(TokenKind kind) {
@@ -94,7 +94,7 @@ ast::BaseNodePtr Parser::ParseExpr() {
     case TokenKind::kMultiply:
       return std::make_shared<ast::Multiply>(lhs, rhs);
     default:
-      IDN_UNREACHEBLE();
+      IDN_UNREACHABLE();
     }
   }
 

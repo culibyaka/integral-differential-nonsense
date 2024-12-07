@@ -1,12 +1,8 @@
 #pragma once
-#include <vector>
+#include <idn/solver/rk4.hpp>
 
 namespace idn::cli {
 
-using Array = std::vector<float>;
-using ArrayRef = Array&;
-using ArrayCref = const Array&;
-
-void GenerateCSVReport(ArrayCref xs, ArrayCref ys);
+void GenerateCSVReport(solver::rk4::ArrayCref xs, solver::rk4::ArrayCref ys);
 
 }  // namespace idn::cli
