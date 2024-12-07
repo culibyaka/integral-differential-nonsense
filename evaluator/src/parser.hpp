@@ -8,7 +8,6 @@ namespace idn::evaluator {
 
 class Lexer;
 class Token;
-// enum TokenKind;
 
 class Parser {
   using LexerPtr = std::unique_ptr<Lexer>;
@@ -26,6 +25,5 @@ class Parser {
  private:
   LexerPtr lexer_;
 };
-
 
 }  // namespace idn::parser
