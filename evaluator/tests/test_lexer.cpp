@@ -15,7 +15,6 @@ TEST(Lexer, Basic) {
   EXPECT_FALSE(lexer.IsEnd());
   EXPECT_TRUE(lexer.Lex()->Is(idn::evaluator::TokenKind::kMultiply));
 
-
   EXPECT_FALSE(lexer.IsEnd());
   EXPECT_TRUE(lexer.Lex()->Is(idn::evaluator::TokenKind::kName));
 
