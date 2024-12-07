@@ -1,19 +1,21 @@
 #include <cstdlib>
-#include <functional>
-#include <idn/evaluator/parser.hpp>
-#include "AST.hpp"
-#include "idn/common/assert.hpp"
-#include "idn/evaluator/ast_node_base.hpp"
-#include "lexer.hpp"
 #include <memory>
-#include <optional>
-#include <format>
 #include <stdexcept>
 #include <string>
 #include <string_view>
 #include <unordered_set>
+#include <format>
+#include <optional>
 
-namespace idn::parser {
+#include <idn/common/assert.hpp>
+#include <idn/evaluator/ast_node_base.hpp>
+
+#include "parser.hpp"
+#include "AST.hpp"
+#include "lexer.hpp"
+
+
+namespace idn::evaluator {
 
 static const std::unordered_set<std::string> kBuiltinFunctionNames = {
   "sin", "cos", "tan", "asin", "acos", "atan", "log"
@@ -37,24 +39,7 @@ static ast::BaseNodePtr CreateFunction(std::string_view function_name, ast::Base
   IDN_UNREACHEBLE();
 }
 
-class Parser::ParserImpl {
- public:
-  explicit ParserImpl(LexerPtr lexer) : lexer_(std::move(lexer)) {}
-
-  ast::BaseNodePtr Parse() { return ParseExpr(); }
-
- private:
-  ast::BaseNodePtr ParseExpr();
-
-  Token Eat(TokenKind kind);
-  [[noreturn]] void Error(std::string msg) noexcept(false);
-
- private:
-  LexerPtr lexer_;
-};
-
-
-Token Parser::ParserImpl::Eat(TokenKind kind) {
+Token Parser::Eat(TokenKind kind) {
   const auto token = lexer_->Lex();
   if (!token.has_value()) {
     throw std::runtime_error("no token");
@@ -68,12 +53,12 @@ Token Parser::ParserImpl::Eat(TokenKind kind) {
   return *token;
 }
 
-void Parser::ParserImpl::Error(std::string message) {
+void Parser::Error(std::string message) {
   // TODO: make nice error message
   throw std::runtime_error(message);
 }
 
-ast::BaseNodePtr Parser::ParserImpl::ParseExpr() {
+ast::BaseNodePtr Parser::ParseExpr() {
   auto tok = lexer_->Lex();
   if (tok->Is(TokenKind::kName)) {
     if (tok->text_ == "x") {
@@ -114,17 +99,6 @@ ast::BaseNodePtr Parser::ParserImpl::ParseExpr() {
   }
 
   Error("invalid expression");
-}
-
-// IMPL
-
-Parser::Parser(LexerPtr lexer) noexcept
-  : impl_(std::make_unique<Parser::ParserImpl>(std::move(lexer))) {}
-
-Parser::~Parser() = default;
-
-ast::BaseNodePtr Parser::Parse() {
-  return impl_->Parse();
 }
 
 }

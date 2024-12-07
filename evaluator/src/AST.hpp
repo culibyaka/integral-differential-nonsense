@@ -4,7 +4,7 @@
 #include <idn/common/macro.hpp>
 #include <idn/evaluator/ast_node_base.hpp>
 
-namespace idn::parser::ast {
+namespace idn::evaluator::ast {
 
 // SPECIAL
 

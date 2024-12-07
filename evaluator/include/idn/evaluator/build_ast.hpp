@@ -4,6 +4,6 @@
 
 namespace idn::evaluator {
 
-parser::ast::BaseNodePtr BuildAstFromString(std::string s);
+ast::BaseNodePtr BuildAstFromString(std::string s);
 
 }

@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace idn::parser::ast {
+namespace idn::evaluator::ast {
 
 class BaseNode {
  public:

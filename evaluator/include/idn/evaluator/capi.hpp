@@ -1,11 +1,11 @@
 #pragma once
-#include "AST.hpp"
+#include <idn/evaluator/ast_node_base.hpp>
 
 extern "C" {
 
 // NOLINTNEXTLINE
 struct function_ctx {
-  idn::parser::ast::BaseNodePtr func_;
+  idn::evaluator::ast::BaseNodePtr func_;
 };
 
 // FIXME: add calling convention specifier

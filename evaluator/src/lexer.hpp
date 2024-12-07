@@ -4,7 +4,7 @@
 #include <string>
 #include <idn/common/assert.hpp>
 
-namespace idn::parser {
+namespace idn::evaluator {
 
 enum class TokenKind : std::uint32_t {
   kNumber = 0,

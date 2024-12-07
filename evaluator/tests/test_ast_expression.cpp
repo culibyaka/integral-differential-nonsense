@@ -3,8 +3,8 @@
 #include "AST.hpp"
 
 TEST(Expression, Basic) {
-  using idn::parser::ast::Const, idn::parser::ast::X, idn::parser::ast::Y,
-      idn::parser::ast::Plus, idn::parser::ast::Sin, idn::parser::ast::Pow;
+  using idn::evaluator::ast::Const, idn::evaluator::ast::X, idn::evaluator::ast::Y,
+      idn::evaluator::ast::Plus, idn::evaluator::ast::Sin, idn::evaluator::ast::Pow;
 
   const auto expr =
       std::make_unique<Pow>(std::make_unique<Sin>(std::make_unique<Plus>(
