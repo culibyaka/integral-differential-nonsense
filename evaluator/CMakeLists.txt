@@ -1,4 +1,7 @@
-project(idn-evaluator CXX)
+cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
+project(idn_evaluator CXX)
+
+option(ENABLE_IDN_EVALUATOR_TESTING "Enables IDN::Evaluator testing" ON)
 
 file(GLOB_RECURSE SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp

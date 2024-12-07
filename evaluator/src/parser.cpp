@@ -101,4 +101,4 @@ ast::BaseNodePtr Parser::ParseExpr() {
   Error("invalid expression");
 }
 
-}
+}  // namespace idn::parser

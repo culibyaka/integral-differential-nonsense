@@ -1,8 +1,8 @@
 #pragma once
 #include <cstdint>
+#include <idn/common/assert.hpp>
 #include <optional>
 #include <string>
-#include <idn/common/assert.hpp>
 
 namespace idn::evaluator {
 

@@ -30,7 +30,7 @@ run-debug run-release: run-%: build-%
 
 .PHONY: format
 format:
-	find cli parser solver -name '*pp' -type f  | xargs $(CLANG_FORMAT) -i
+	find cli evaluator solver -name '*pp' -type f  | xargs $(CLANG_FORMAT) -i
 	$(BLACK) $(BLACK_FLAGS) vissuite
 
 .PHONY: dist-clean
