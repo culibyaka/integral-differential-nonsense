@@ -1,8 +1,8 @@
 #include "AST.hpp"
 #include <memory>
-#include "idn/evaluator/ast_node_base.hpp"
+#include <idn/evaluator/ast_node_base.hpp>
 
-namespace idn::parser::ast {
+namespace idn::evaluator::ast {
 
 BaseNodePtr GetX() {
   static X global_x;

@@ -26,6 +26,4 @@ target_link_libraries(
     idn::common
 )
 
-if (IDN_ENABLE_TESTING AND ENABLE_IDN_EVALUATOR_TESTING)
-  add_subdirectory(tests)
-endif ()
+add_subdirectory(tests)

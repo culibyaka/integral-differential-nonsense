@@ -1,9 +1,8 @@
 #include "lexer.hpp"
-#include <bits/ranges_util.h>
 #include <cctype>
 #include <idn/common/assert.hpp>
 
-namespace idn::parser {
+namespace idn::evaluator {
 
 static const std::string kKindToString[] = {"kNumber", "kLPar",  "kRPar",
                                             "kPlus",   "kMinus", "kMultiply",

@@ -4,14 +4,14 @@
 #include <idn/common/macro.hpp>
 #include <idn/evaluator/ast_node_base.hpp>
 
-namespace idn::parser::ast {
+namespace idn::evaluator::ast {
 
 // SPECIAL
 
 class X final : public BaseNode {
  public:
   double Evaluate(double x, double y) override {
-    UNUSED(y);
+    IDN_UNUSED(y);
     return x;
   }
 };
@@ -19,7 +19,7 @@ class X final : public BaseNode {
 class Y final : public BaseNode {
  public:
   double Evaluate(double x, double y) override {
-    UNUSED(x);
+    IDN_UNUSED(x);
     return y;
   }
 };
@@ -29,8 +29,8 @@ class Const : public BaseNode {
   explicit Const(double value) : value_(value) {}
 
   double Evaluate(double x, double y) override {
-    UNUSED(x);
-    UNUSED(y);
+    IDN_UNUSED(x);
+    IDN_UNUSED(y);
     return value_;
   }
 
