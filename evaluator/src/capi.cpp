@@ -1,7 +1,8 @@
 #include <idn/evaluator/ast_node_base.hpp>
 #include <idn/evaluator/capi.hpp>
 
-extern "C" double idn_parser_function_ctx_call(function_ctx ctx, double x,
-                                               double y) {
-  return ctx.func_->Evaluate(x, y);
+extern "C" float idn_parser_function_ctx_call(void* ctx, float x,
+                                               float y) {
+  auto func = *reinterpret_cast<idn::evaluator::ast::BaseNodePtr*>(ctx);
+  return func->Evaluate(x, y);
 }

@@ -14,12 +14,14 @@ SolveStep:
     sub     rsp, 48
 
     mov     qword [rbp-8], rdi  ; Func pointer
+    mov     qword [rbp-44], rsi  ; ctx pointer
     movss   dword [rbp-12], xmm0  ; t
     movss   dword [rbp-16], xmm1  ; y
     movss   dword [rbp-20], xmm2  ; dt
 
     ;; ------------------   k1    -----------------
 
+    mov     rdi, qword [rbp-44]
     call    qword [rbp-8]
     movss   dword [rbp-24], xmm0  ; k1
 
@@ -36,6 +38,7 @@ SolveStep:
     mulss   xmm1, xmm2
     addss   xmm1, dword [rbp-16]
 
+    mov     rdi, qword [rbp-44]
     call    qword [rbp-8]
     movss   dword [rbp-28], xmm0 ; k2
 
@@ -51,6 +54,7 @@ SolveStep:
     mulss   xmm1, xmm2
     addss   xmm1, dword [rbp-16]
 
+    mov     rdi, qword [rbp-44]
     call    qword [rbp-8]
     movss   dword [rbp-32], xmm0 ; k3
 
@@ -63,6 +67,7 @@ SolveStep:
     mulss   xmm1, dword [rbp-20]
     addss   xmm1, dword [rbp-16]
 
+    mov     rdi, qword [rbp-44]
     call    qword [rbp-8]
     movss   dword [rbp-36], xmm0 ; k4
 
